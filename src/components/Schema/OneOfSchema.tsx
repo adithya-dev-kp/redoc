@@ -10,6 +10,7 @@ import { Badge } from '../../common-elements/shelfs';
 import { SchemaModel } from '../../services/models';
 import { ConstraintsView } from '../Fields/FieldConstraints';
 import { Schema, SchemaProps } from './Schema';
+import { UnderlinedHeader } from '../../common-elements';
 
 export interface OneOfButtonProps {
   subSchema: SchemaModel;
@@ -52,12 +53,20 @@ export class OneOfSchema extends React.Component<SchemaProps> {
 
     return (
       <div>
-        <OneOfLabel> {schema.oneOfType} </OneOfLabel>
-        <OneOfList>
-          {oneOf.map((subSchema, idx) => (
-            <OneOfButton key={subSchema.pointer} schema={schema} subSchema={subSchema} idx={idx} />
-          ))}
-        </OneOfList>
+        <UnderlinedHeader>
+          <OneOfLabel> {schema.oneOfType} </OneOfLabel>
+          <OneOfList>
+            {oneOf.map((subSchema, idx) => (
+              <OneOfButton
+                key={subSchema.pointer}
+                schema={schema}
+                subSchema={subSchema}
+                idx={idx}
+              />
+            ))}
+          </OneOfList>
+        </UnderlinedHeader>
+        <div>{oneOf[schema.activeOneOf].description}</div>
         <div>
           {oneOf[schema.activeOneOf].deprecated && <Badge type="warning">Deprecated</Badge>}
         </div>
